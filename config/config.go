@@ -7,7 +7,7 @@ import (
 	_ "github.com/tkanos/gonfig"
 )
 
-//menampung konfigurasi dari config.json
+//receive configuration from .env file
 type Configuration struct {
 	DB_USERNAME string
 	DB_PASSWORD string
@@ -17,6 +17,7 @@ type Configuration struct {
 }
 
 func GetConfig(key string) string {
+	
 	// load .env file
 	err := godotenv.Load(".env")
 
