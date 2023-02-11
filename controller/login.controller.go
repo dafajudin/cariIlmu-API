@@ -4,8 +4,8 @@ import (
 	"cariIlmu-API/helper"
 	"cariIlmu-API/models"
 	"net/http"
-	// "time"
-	// "github.com/golang-jwt/jwt"
+	"time"
+	"github.com/golang-jwt/jwt"
 	"github.com/labstack/echo/v4"
 )
 
@@ -28,27 +28,30 @@ func CheckLogin(c echo.Context) error {
 		return echo.ErrUnauthorized
 	}
 
-	return c.JSON(http.StatusOK, "Login Success")
+	// return c.JSON(http.StatusOK, "Login Success")
 
 	//create token
-	// token := jwt.New(jwt.SigningMethodHS256)
+	token := jwt.New(jwt.SigningMethodHS256)
 
-	// //set claims
-	// claims := token.Claims.(jwt.MapClaims)
-	// claims["username"] = username
-	// claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
+	//set claims
+	claims := token.Claims.(jwt.MapClaims)
+
+	// payload
+	claims["name"] = name
+	claims["level"] = "application"
+	claims["exp"] = time.Now().Add(time.Hour * 72).Unix()
 
 	// //generate encoded token and send it as response
-	// t, err := token.SignedString([]byte("secret"))
-	// if err != nil {
-	// 	return c.JSON(http.StatusInternalServerError, map[string]string{
-	// 		"message": err.Error(),
-	// 	})
-	// }
+	t, err := token.SignedString([]byte("secret"))
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, map[string]string{
+			"message": err.Error(),
+		})
+	}
 
-	// return c.JSON(http.StatusOK, map[string]string{
-	// 	"token": t,
-	// })
+	return c.JSON(http.StatusOK, map[string]string{
+		"token": t,
+	})
 }
 
 func GenerateHashPassword(c echo.Context) error {
