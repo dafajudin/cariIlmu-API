@@ -1,12 +1,12 @@
 package models
 
 import (
-	"cariIlmu-API/database"
 	"net/http"
+	"cariIlmu-API/database"
 )
 
 type Course_Categories struct {
-	Id int `json:"id"`
+	Id   int    `json:"id"`
 	Name string `json:"name"`
 }
 
@@ -35,7 +35,7 @@ func PostCourse_Categories(Name string) (Response, error) {
 	return res, nil
 }
 
-func ReadAllCourse_Categories() (Response, error){
+func ReadAllCourse_Categories() (Response, error) {
 	var obj Course_Categories
 	var arrobj []Course_Categories
 	var res Response

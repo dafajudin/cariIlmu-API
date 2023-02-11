@@ -11,7 +11,7 @@ type UserCourses struct {
 	Course_id int `json:"course_id"`
 }
 
-func PostUserCourses(users_id int, course_id int) (Response, error) {
+func Post_UserCourses(users_id int, course_id int) (Response, error) {
 	var res Response
 
 	con := database.CreateConnection()
@@ -35,12 +35,14 @@ func PostUserCourses(users_id int, course_id int) (Response, error) {
 	return res, nil
 }
 
-func ReadAllUserCourses() (Response, error){
+func Read_AllUserCourses() (Response, error){
 	var obj UserCourses
 	var arrobj []UserCourses
 	var res Response
 
+	//Open connection to database
 	con := database.CreateConnection()
+
 	sqlStatement := "SELECT * FROM users_courses"
 	rows, err := con.Query(sqlStatement)
 	if err != nil {
@@ -63,7 +65,7 @@ func ReadAllUserCourses() (Response, error){
 	return res, nil
 }
 
-func PutUserCourses(id int, users_id int, course_id int) (Response, error) {
+func Put_UserCourses(id int, users_id int, course_id int) (Response, error) {
 	var res Response
 
 	con := database.CreateConnection()
@@ -89,27 +91,32 @@ func PutUserCourses(id int, users_id int, course_id int) (Response, error) {
 }
 
 func Delete_UsersCourses(id int)(Response, error){
-	res := Response{}
+	var res Response
+
+	//Open connection to database
 	con := database.CreateConnection()
 
 	sqlStatement := "DELETE FROM users_courses WHERE id = ?"
 
+	// Prepare statement
 	stmt, err := con.Prepare(sqlStatement)
 	if err != nil {
 		return res, err
 	}
 
+	// Execute the SQL statement
 	result, err := stmt.Exec(id)
 	if err != nil {
 		return res, err
 	}
 
+	// Get the number of rows affected
 	rowsAffected, err := result.RowsAffected()
 	if err != nil {
 		return res, err
 	}
 
-	//Respone data
+	//setup response
 	res.Status = http.StatusOK
 	res.Message = "Success"
 	res.Data = map[string]int64{

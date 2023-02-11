@@ -1,8 +1,8 @@
 package models
 
 import (
-	"cariIlmu-API/database"
 	"net/http"
+	"cariIlmu-API/database"
 )
 
 type Users struct {
@@ -13,7 +13,7 @@ type Users struct {
 }
 
 //Create books
-func Postusers(name string, email string, password string) (Response, error) {
+func Post_Users(name string, email string, password string) (Response, error) {
 	var res Response
 
 	//create connection
@@ -42,7 +42,7 @@ func Postusers(name string, email string, password string) (Response, error) {
 	return res, nil
 }
 
-func ReadAllUsers() (Response, error){
+func Read_AllUsers() (Response, error){
 	var obj Users
 	var arrobj []Users
 	var res Response
@@ -72,7 +72,7 @@ func ReadAllUsers() (Response, error){
 	return res, nil
 }
 
-func PutUsers(id int, name string, email string, password string) (Response, error){
+func Put_Users(id int, name string, email string, password string) (Response, error){
 	var res Response
 
 	//create connection
@@ -100,7 +100,7 @@ func PutUsers(id int, name string, email string, password string) (Response, err
 	return res, nil
 }
 
-func DeleteUsers(id int)(Response, error){
+func Delete_Users(id int)(Response, error){
 	var res Response
 
 	con := database.CreateConnection()

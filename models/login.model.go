@@ -1,10 +1,10 @@
 package models
 
 import (
-	"cariIlmu-API/database"
-	"cariIlmu-API/helper"
-	"database/sql"
 	"fmt"
+	"database/sql"
+	"cariIlmu-API/helper"
+	"cariIlmu-API/database"
 )
 
 type Admin struct {
@@ -17,9 +17,10 @@ func CheckLogin(name string,email string, password string) (bool, error) {
 	var obj Admin
 	var pwd string
 
+	//open connection to database
 	con := database.CreateConnection()
 
-	//searching data for username
+	//searching data for username table
 	sqlStatement := "SELECT * FROM admin WHERE name = ? AND email = ?"
 
 	err := con.QueryRow(sqlStatement, name, email).Scan(

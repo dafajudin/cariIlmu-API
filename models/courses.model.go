@@ -1,18 +1,18 @@
 package models
 
 import (
-	"cariIlmu-API/database"
 	"net/http"
+	"cariIlmu-API/database"
 )
 
 type Courses struct {
-	Id 					int `json:"id"`
-	Title 				string `json:"title"`
-	Course_categories_id 	string `json:"course_categories_id"`
+	Id                   int    `json:"id"`
+	Title                string `json:"title"`
+	Course_categories_id string `json:"course_categories_id"`
 }
 
-//Create books
-func PostCourses(title string, course_categories_id string ) (Response, error) {
+// Create Courses
+func Post_Courses(title string, course_categories_id string) (Response, error) {
 	var res Response
 
 	//create connection
@@ -41,14 +41,15 @@ func PostCourses(title string, course_categories_id string ) (Response, error) {
 	return res, nil
 }
 
-func ReadAllCourses() (Response, error){
+// Read all courses
+func Read_AllCourses() (Response, error) {
 	var obj Courses
 	var arrobj []Courses
 	var res Response
 
 	//connect to database
 	con := database.CreateConnection()
-	
+
 	sqlStatement := "SELECT * FROM courses"
 	rows, err := con.Query(sqlStatement)
 	if err != nil {
@@ -63,7 +64,7 @@ func ReadAllCourses() (Response, error){
 		}
 		arrobj = append(arrobj, obj)
 	}
-	
+
 	//Respone data
 	res.Status = http.StatusOK
 	res.Message = "Success"
@@ -72,8 +73,8 @@ func ReadAllCourses() (Response, error){
 	return res, nil
 }
 
-//Update books
-func PutCourses(id int, title string, course_categories_id string) (Response, error) {
+// Update courses
+func Put_Courses(id int, title string, course_categories_id string) (Response, error) {
 	var res Response
 
 	con := database.CreateConnection()
@@ -85,7 +86,7 @@ func PutCourses(id int, title string, course_categories_id string) (Response, er
 		return res, err
 	}
 
-	result, err := stmt.Exec(title,course_categories_id, id)
+	result, err := stmt.Exec(title, course_categories_id, id)
 	if err != nil {
 		return res, err
 	}
@@ -105,7 +106,7 @@ func PutCourses(id int, title string, course_categories_id string) (Response, er
 	return res, nil
 }
 
-//Delete books by id
+// Delete courses
 func Delete_Courses(id int) (Response, error) {
 	var res Response
 
