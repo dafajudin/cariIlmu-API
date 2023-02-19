@@ -1,14 +1,19 @@
 package controller
 
 import (
-	"cariIlmu-API/models"
 	"net/http"
 	"strconv"
+	"cariIlmu-API/models"
 	"github.com/labstack/echo/v4"
 )
 
-func GetAll(c echo.Context) error {
-	result, err := models.ReadAllCourse_Categories()
+func CreateCourseCategories(c echo.Context) error {
+
+	//accept data from client
+	name 		:= c.FormValue("name")
+
+	//call function PostHero from models
+	result, err := models.PostCourse_Categories(name)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{
 			"message": err.Error(),
@@ -18,13 +23,8 @@ func GetAll(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
-func PostCourseCategories(c echo.Context) error {
-
-	//accept data from client
-	name 		:= c.FormValue("name")
-
-	//call function PostHero from models
-	result, err := models.PostCourse_Categories(name)
+func ReadAllCourseCategories(c echo.Context) error {
+	result, err := models.ReadAllCourse_Categories()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{
 			"message": err.Error(),
@@ -51,7 +51,7 @@ func UpdateCourseCategories(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
-func DeleteCourse_Categories(c echo.Context) error{
+func DeleteCourseCategories(c echo.Context) error{
 
 	//accept id from client
 	id := c.FormValue("id")

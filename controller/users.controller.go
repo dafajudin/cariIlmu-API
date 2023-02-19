@@ -1,18 +1,19 @@
 package controller
 
 import (
-	"cariIlmu-API/models"
 	"net/http"
 	"strconv"
+	"cariIlmu-API/models"
 	"github.com/labstack/echo/v4"
 )
 
+//Create Users
 func CreateUsers(c echo.Context) error {
 	name := c.FormValue("name")
 	email := c.FormValue("email")
 	password := c.FormValue("password")
 
-	result, err := models.Postusers(name, email, password)
+	result, err := models.Post_Users(name, email, password)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{
 			"message": err.Error(),
@@ -22,8 +23,9 @@ func CreateUsers(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
+//Read All Users
 func ReadAllUsers(c echo.Context) error {
-	result, err := models.ReadAllUsers()
+	result, err := models.Read_AllUsers()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{
 			"message": err.Error(),
@@ -33,6 +35,7 @@ func ReadAllUsers(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
+//Update Users
 func UpdateUsers(c echo.Context) error {
 	id := c.FormValue("id")
 	name := c.FormValue("name")
@@ -45,7 +48,7 @@ func UpdateUsers(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	result, err := models.PutUsers(conv_id, name, email, password)
+	result, err := models.Put_Users(conv_id, name, email, password)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
@@ -53,6 +56,7 @@ func UpdateUsers(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
+//Delete Users
 func DeleteUsers(c echo.Context) error {
 	id := c.FormValue("id")
 
@@ -61,7 +65,7 @@ func DeleteUsers(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	result, err := models.DeleteUsers(conv_id)
+	result, err := models.Delete_Users(conv_id)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}

@@ -1,12 +1,13 @@
 package controller
 
 import (
-	"cariIlmu-API/models"
 	"net/http"
 	"strconv"
+	"cariIlmu-API/models"
 	"github.com/labstack/echo/v4"
 )
 
+//Create UsersCourses
 func CreateUsersCourses(c echo.Context) error {
 	user_id := c.FormValue("user_id")
 	course_id := c.FormValue("course_id")
@@ -21,7 +22,7 @@ func CreateUsersCourses(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	result, err := models.PostUserCourses(conv_id, conv_course_id)
+	result, err := models.Post_UserCourses(conv_id, conv_course_id)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
 	}
@@ -29,8 +30,9 @@ func CreateUsersCourses(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
+//Read All UsersCourses
 func ReadAllUsersCourses(c echo.Context) error {
-	result, err := models.ReadAllUserCourses()
+	result, err := models.Read_AllUserCourses()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
 	}
@@ -38,6 +40,7 @@ func ReadAllUsersCourses(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
+//Update UsersCourses
 func UpdateUsersCourses(c echo.Context) error {
 	id := c.FormValue("id")
 	users_id := c.FormValue("users_id")
@@ -58,7 +61,7 @@ func UpdateUsersCourses(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	result, err := models.PutUserCourses(conv_id, int(conv_users_id), int(conv_course_id))
+	result, err := models.Put_UserCourses(conv_id, int(conv_users_id), int(conv_course_id))
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
@@ -66,18 +69,24 @@ func UpdateUsersCourses(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
+//Delete UsersCourses
 func DeleteUsersCourses(c echo.Context) error {
-	id := c.Param("id")
+	//accept id from client
+	id := c.FormValue("id")
 
+	//convert id to int
 	conv_id, err := strconv.Atoi(id)
 	if err != nil {
-		return c.JSON(http.StatusInternalServerError, err.Error())
+		return c.JSON(http.StatusInternalServerError, map[string]string{
+			"message": err.Error(),
+		})
 	}
 
+	// call function Delete_UsersCourses from models
 	result, err := models.Delete_UsersCourses(conv_id)
-	if err != nil {
-		return c.JSON(http.StatusInternalServerError, err.Error())
-	}
+		if err != nil {
+			return c.JSON(http.StatusInternalServerError, err.Error())
+		}
 
 	return c.JSON(http.StatusOK, result)
 }
