@@ -11,12 +11,14 @@ func GetApiRoutes() *echo.Echo {
 
 	//routes for course categories
 	e.GET("/api/course_categories", controller.ReadAllCourseCategories)
+	e.GET("/api/course_categories/:id", controller.ReadAllCourseCategoriesById)
 	e.POST("/api/course_categories", controller.CreateCourseCategories)
 	e.PUT("/api/course_categories", controller.UpdateCourseCategories)
 	e.DELETE("/api/course_categories", controller.DeleteCourseCategories)
 
 	//create course
 	e.GET("/api/courses", controller.ReadAllCourses)
+	e.GET("/api/courses/:id", controller.ReadCoursesById)
 	e.POST("/api/courses", controller.CreateCourses)
 	e.PUT("/api/courses", controller.UpdateCourses)
 	e.DELETE("/api/courses", controller.DeleteCourses)
@@ -27,6 +29,7 @@ func GetApiRoutes() *echo.Echo {
 
 	//routes for users_courses
 	e.GET("/api/users_courses", controller.ReadAllUsersCourses)
+	e.GET("/api/users_courses/:id", controller.ReadUsersCoursesById)
 	e.POST("api/users_courses", controller.CreateUsersCourses)
 	e.PUT("/api/users_courses", controller.UpdateUsersCourses)
 	e.DELETE("/api/users_courses", controller.DeleteUsersCourses)

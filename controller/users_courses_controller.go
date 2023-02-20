@@ -7,7 +7,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-//Create UsersCourses
 func CreateUsersCourses(c echo.Context) error {
 	user_id := c.FormValue("user_id")
 	course_id := c.FormValue("course_id")
@@ -30,7 +29,6 @@ func CreateUsersCourses(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
-//Read All UsersCourses
 func ReadAllUsersCourses(c echo.Context) error {
 	result, err := models.FindAllUserCourses()
 	if err != nil {
@@ -40,7 +38,22 @@ func ReadAllUsersCourses(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
-//Update UsersCourses
+func ReadUsersCoursesById(c echo.Context) error {
+	id := c.Param("id")
+
+	conv_id, err := strconv.Atoi(id)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	result, err := models.FindUserCoursesById(conv_id)
+	if err != nil {
+		return c.JSON(http.StatusInternalServerError, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, result)
+}
+
 func UpdateUsersCourses(c echo.Context) error {
 	id := c.FormValue("id")
 	users_id := c.FormValue("users_id")
@@ -69,7 +82,6 @@ func UpdateUsersCourses(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
-//Delete UsersCourses
 func DeleteUsersCourses(c echo.Context) error {
 	//accept id from client
 	id := c.FormValue("id")

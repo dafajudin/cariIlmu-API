@@ -71,6 +71,27 @@ func FindAllCourses() (Response, error) {
 	return res, nil
 }
 
+func FindCoursesById(id int) (Response, error) {
+	var obj Courses
+	var res Response
+
+	//connect to database
+	con := database.CreateConnection()
+
+	sqlStatement := "SELECT * FROM courses WHERE id = ?"
+	err := con.QueryRow(sqlStatement, id).Scan(&obj.Id, &obj.Title, &obj.Course_categories_id)
+	if err != nil {
+		return res, err
+	}
+
+	//Respone data
+	res.Status = http.StatusOK
+	res.Message = "Success"
+	res.Data = obj
+
+	return res, nil
+}
+
 func PutCourses(id int, title string, course_categories_id string) (Response, error) {
 	var res Response
 

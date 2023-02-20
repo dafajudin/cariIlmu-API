@@ -71,7 +71,7 @@ func FindAllUsers() (Response, error){
 	return res, nil
 }
 
-func FindById(id int) (Response, error){
+func FindUsersById(id int) (Response, error){
 	var obj Users
 	var res Response
 

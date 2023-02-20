@@ -44,7 +44,7 @@ func ReadUsersById(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	result, err := models.FindById(conv_id)
+	result, err := models.FindUsersById(conv_id)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
