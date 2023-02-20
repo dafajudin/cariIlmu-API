@@ -11,7 +11,7 @@ Membuat API dengan konsep REST detailnya sebagai berikut:
 
 ## Tech
 API ini dibuat dengan menggunakan :
-[Echo Labstack] (https://github.com/labstack/echo)
+- [https://github.com/labstack/echo]
 MySqlDriver
 dgrijalva/jwt-go
 joho/godotenv
