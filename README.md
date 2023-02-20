@@ -19,8 +19,8 @@ tech yang digunakan dalam development API ini :
 ## Framework and Library
 Installation :
 ```bash
-go mod init {your module}
-go get github.com/{name of framework or library}
+$ go mod init {your module}
+$ go get github.com/{name of framework or library}
 ```
 
 * Echo Labstack
@@ -31,5 +31,5 @@ go get github.com/{name of framework or library}
 ## Development Server
 ### Start server
 ```bash
-go run main.go
+$ go run main.go
 ```
