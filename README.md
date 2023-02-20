@@ -16,10 +16,15 @@ Membuat API dengan konsep REST detailnya sebagai berikut:
 * Tools Editor (VsCode) 
 
 ## Framework and Library
-Echo Labstack
-MySqlDriver
-dgrijalva/jwt-go
-joho/godotenv
+Installation :
+```bash
+go get github.com/{name of framework or library}
+```
+
+* Echo Labstack
+* MySqlDriver
+* dgrijalva/jwt-go
+* joho/godotenv
 
 ## Development Server
 ### Start server
