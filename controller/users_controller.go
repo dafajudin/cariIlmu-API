@@ -7,7 +7,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-//Create Users
 func CreateUsers(c echo.Context) error {
 	name := c.FormValue("name")
 	email := c.FormValue("email")
@@ -23,7 +22,6 @@ func CreateUsers(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
-//Read All Users
 func ReadAllUsers(c echo.Context) error {
 	result, err := models.FindAllUsers()
 	if err != nil {
@@ -35,7 +33,6 @@ func ReadAllUsers(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
-//Read Users by Id
 func ReadUsersById(c echo.Context) error {
 	id := c.Param("id")
 
@@ -52,7 +49,6 @@ func ReadUsersById(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
  
-//Update Users
 func UpdateUsers(c echo.Context) error {
 	id := c.FormValue("id")
 	name := c.FormValue("name")
@@ -73,7 +69,6 @@ func UpdateUsers(c echo.Context) error {
 	return c.JSON(http.StatusOK, result)
 }
 
-//Delete Users
 func DeleteUsers(c echo.Context) error {
 	id := c.FormValue("id")
 
