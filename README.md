@@ -11,7 +11,7 @@ Membuat API dengan konsep REST detailnya sebagai berikut:
 
 ## Tech
 API ini dibuat dengan menggunakan :
-- [https://github.com/labstack/echo]
+Echo Labstack
 MySqlDriver
 dgrijalva/jwt-go
 joho/godotenv
@@ -20,7 +20,7 @@ joho/godotenv
 * Golang 1.20.1
 * MySQL Database
 * Postman API
-* Tools Editor (VsCode) [![Visual Studio Code](https://img.shields.io/badge/--007ACC?logo=visual%20studio%20code&logoColor=ffffff)](https://code.visualstudio.com/)
+* Tools Editor (VsCode) 
 
 ## Development Server
 ### Start server
