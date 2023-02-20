@@ -16,6 +16,12 @@ MySqlDriver
 dgrijalva/jwt-go
 joho/godotenv
 
+## Requirement
+* Golang 1.20.1
+* MySQL Database
+* Postman API
+* Tools Editor (VsCode)
+
 ## Development Server
 ### Start server
 ```bash
