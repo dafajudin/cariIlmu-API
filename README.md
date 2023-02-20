@@ -19,6 +19,7 @@ tech yang digunakan dalam development API ini :
 ## Framework and Library
 Installation :
 ```bash
+go mod init {your module}
 go get github.com/{name of framework or library}
 ```
 
