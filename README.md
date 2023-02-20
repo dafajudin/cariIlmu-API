@@ -8,7 +8,7 @@ Membuat API dengan konsep REST detailnya sebagai berikut:
 * CRUD Akses Kelas Peserta
 
 ## Tech
-### FrameWork and library
+API ini dibuat dengan menggunakan :
     - Echo Labstack
     - MySqlDriver
     - dgrijalva/jwt-go
