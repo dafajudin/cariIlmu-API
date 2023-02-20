@@ -10,7 +10,7 @@ Membuat API dengan konsep REST detailnya sebagai berikut:
 * CRUD Akses Kelas Peserta
 
 ## Tech
-tech yang digunakan dalam development API ini :
+tech yang digunakan dalam development API :
 * Golang 1.20.1
 * MySQL Database
 * Postman API
