@@ -5,24 +5,18 @@ import (
 	"cariIlmu-API/database"
 )
 
-type Courses struct {
-	Id                   int    `json:"id"`
-	Title                string `json:"title"`
-	Course_categories_id string `json:"course_categories_id"`
+type UserCourses struct {
+	Id int `json:"id"`
+	Users_id int `json:"users_id"`
+	Course_id int `json:"course_id"`
 }
 
-// Create Courses
-func Post_Courses(title string, course_categories_id string) (Response, error) {
+func PostUserCourses(users_id int, course_id int) (Response, error) {
 	var res Response
 
-	//create connection
 	con := database.CreateConnection()
-
-	//query
-	sqlStatement := "INSERT INTO courses (title, course_categories_id) VALUES (?,?)"
-
-	result, err := con.Exec(sqlStatement, title, course_categories_id)
-
+	sqlStatement := "INSERT INTO users_courses (users_id, course_id) VALUES (?,?)"
+	result, err := con.Exec(sqlStatement, users_id, course_id)
 	if err != nil {
 		return res, err
 	}
@@ -41,16 +35,15 @@ func Post_Courses(title string, course_categories_id string) (Response, error) {
 	return res, nil
 }
 
-// Read all courses
-func Read_AllCourses() (Response, error) {
-	var obj Courses
-	var arrobj []Courses
+func FindAllUserCourses() (Response, error){
+	var obj UserCourses
+	var arrobj []UserCourses
 	var res Response
 
-	//connect to database
+	//Open connection to database
 	con := database.CreateConnection()
 
-	sqlStatement := "SELECT * FROM courses"
+	sqlStatement := "SELECT * FROM users_courses"
 	rows, err := con.Query(sqlStatement)
 	if err != nil {
 		return res, err
@@ -58,14 +51,13 @@ func Read_AllCourses() (Response, error) {
 	defer rows.Close()
 
 	for rows.Next() {
-		err = rows.Scan(&obj.Id, &obj.Title, &obj.Course_categories_id)
-		if err != nil {
+		if err := rows.Scan(&obj.Id, &obj.Users_id, &obj.Course_id); err != nil {
 			return res, err
+		} else {
+			arrobj = append(arrobj, obj)
 		}
-		arrobj = append(arrobj, obj)
 	}
 
-	//Respone data
 	res.Status = http.StatusOK
 	res.Message = "Success"
 	res.Data = arrobj
@@ -73,20 +65,13 @@ func Read_AllCourses() (Response, error) {
 	return res, nil
 }
 
-// Update courses
-func Put_Courses(id int, title string, course_categories_id string) (Response, error) {
+func PutUserCourses(id int, users_id int, course_id int) (Response, error) {
 	var res Response
 
 	con := database.CreateConnection()
 
-	sqlStatement := "UPDATE courses SET title = ?, course_categories_id = ? WHERE id = ?"
-
-	stmt, err := con.Prepare(sqlStatement)
-	if err != nil {
-		return res, err
-	}
-
-	result, err := stmt.Exec(title, course_categories_id, id)
+	sqlStatement := "UPDATE users_courses SET users_id = ?, course_id = ? WHERE id = ?"
+	result, err := con.Exec(sqlStatement, users_id, course_id, id)
 	if err != nil {
 		return res, err
 	}
@@ -96,7 +81,6 @@ func Put_Courses(id int, title string, course_categories_id string) (Response, e
 		return res, err
 	}
 
-	//Response data
 	res.Status = http.StatusOK
 	res.Message = "Success"
 	res.Data = map[string]int64{
@@ -106,29 +90,33 @@ func Put_Courses(id int, title string, course_categories_id string) (Response, e
 	return res, nil
 }
 
-// Delete courses
-func Delete_Courses(id int) (Response, error) {
+func DeleteUsersCourses(id int)(Response, error){
 	var res Response
 
+	//Open connection to database
 	con := database.CreateConnection()
 
-	sqlStatement := "DELETE FROM courses WHERE id = ?"
+	sqlStatement := "DELETE FROM users_courses WHERE id = ?"
 
+	// Prepare statement
 	stmt, err := con.Prepare(sqlStatement)
 	if err != nil {
 		return res, err
 	}
 
+	// Execute the SQL statement
 	result, err := stmt.Exec(id)
 	if err != nil {
 		return res, err
 	}
 
+	// Get the number of rows affected
 	rowsAffected, err := result.RowsAffected()
 	if err != nil {
 		return res, err
 	}
 
+	//setup response
 	res.Status = http.StatusOK
 	res.Message = "Success"
 	res.Data = map[string]int64{

@@ -10,6 +10,7 @@ import (
 var db *sql.DB
 var err error
 
+
 func Init(){
 	fmt.Println("DB_NAME: ", config.GetConfig("DB_NAME"))
 

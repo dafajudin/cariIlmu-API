@@ -12,7 +12,7 @@ func CreateCourses(c echo.Context) error {
 	title := c.FormValue("title") 
 	course_categories_id := c.FormValue("course_categories_id")
 
-	result, err := models.Post_Courses(title, course_categories_id)
+	result, err := models.PostCourses(title, course_categories_id)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{
 			"message": err.Error(),
@@ -24,7 +24,7 @@ func CreateCourses(c echo.Context) error {
 
 //Read All Courses
 func ReadAllCourses(c echo.Context) error {
-	result, err := models.Read_AllCourses()
+	result, err := models.FindAllCourses()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{
 			"message": err.Error(),
@@ -46,7 +46,7 @@ func UpdateCourses(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	result, err := models.Put_Courses(conv_id, title, course_categories_id)
+	result, err := models.PutCourses(conv_id, title, course_categories_id)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
@@ -63,7 +63,7 @@ func DeleteCourses(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	result, err := models.Delete_Courses(conv_id)
+	result, err := models.DeleteCourses(conv_id)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}

@@ -5,18 +5,24 @@ import (
 	"cariIlmu-API/database"
 )
 
-type Course_Categories struct {
-	Id   int    `json:"id"`
-	Name string `json:"name"`
+type Users struct {
+	Id       int    `json:"id"`
+	Name	 string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
-func PostCourse_Categories(Name string) (Response, error) {
+func PostUsers(name string, email string, password string) (Response, error) {
 	var res Response
 
+	//create connection
 	con := database.CreateConnection()
 
-	sqlStatement := "INSERT INTO course_categories (Name) VALUES (?)"
-	result, err := con.Exec(sqlStatement, Name)
+	//query
+	sqlStatement := "INSERT INTO users (name, email, password) VALUES (?,?,?)"
+
+	result, err := con.Exec(sqlStatement, name, email, password)
+
 	if err != nil {
 		return res, err
 	}
@@ -35,13 +41,14 @@ func PostCourse_Categories(Name string) (Response, error) {
 	return res, nil
 }
 
-func ReadAllCourse_Categories() (Response, error) {
-	var obj Course_Categories
-	var arrobj []Course_Categories
+func FindAllUsers() (Response, error){
+	var obj Users
+	var arrobj []Users
 	var res Response
 
+	//connect to database
 	con := database.CreateConnection()
-	sqlStatement := "SELECT * FROM course_categories"
+	sqlStatement := "SELECT * FROM users"
 	rows, err := con.Query(sqlStatement)
 	if err != nil {
 		return res, err
@@ -49,13 +56,14 @@ func ReadAllCourse_Categories() (Response, error) {
 	defer rows.Close()
 
 	for rows.Next() {
-		if err := rows.Scan(&obj.Id, &obj.Name); err != nil {
+		err = rows.Scan(&obj.Id, &obj.Name, &obj.Email, &obj.Password)
+		if err != nil {
 			return res, err
-		} else {
-			arrobj = append(arrobj, obj)
 		}
+		arrobj = append(arrobj, obj)
 	}
-
+	
+	//Respone data
 	res.Status = http.StatusOK
 	res.Message = "Success"
 	res.Data = arrobj
@@ -63,19 +71,16 @@ func ReadAllCourse_Categories() (Response, error) {
 	return res, nil
 }
 
-func PutCourse_Categories(id int, name string) (Response, error) {
+func PutUsers(id int, name string, email string, password string) (Response, error){
 	var res Response
 
+	//create connection
 	con := database.CreateConnection()
 
-	sqlStatement := "UPDATE course_categories SET name = ? WHERE id = ?"
+	//query
+	sqlStatement := "UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?"
 
-	stmt, err := con.Prepare(sqlStatement)
-	if err != nil {
-		return res, err
-	}
-
-	result, err := stmt.Exec(name, id)
+	result, err := con.Exec(sqlStatement, name, email,password, id)
 	if err != nil {
 		return res, err
 	}
@@ -94,17 +99,12 @@ func PutCourse_Categories(id int, name string) (Response, error) {
 	return res, nil
 }
 
-func DeleteCourse_Categories(id int) (Response, error) {
+func DeleteUsers(id int)(Response, error){
 	var res Response
+
 	con := database.CreateConnection()
-
-	sqlStatement := "DELETE FROM course_categories WHERE id = ?"
-	stmt, err := con.Prepare(sqlStatement)
-	if err != nil {
-		return res, err
-	}
-
-	result, err := stmt.Exec(id)
+	sqlStatement := "DELETE FROM users WHERE id = ?"
+	result, err := con.Exec(sqlStatement, id)
 	if err != nil {
 		return res, err
 	}

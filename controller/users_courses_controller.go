@@ -22,7 +22,7 @@ func CreateUsersCourses(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	result, err := models.Post_UserCourses(conv_id, conv_course_id)
+	result, err := models.PostUserCourses(conv_id, conv_course_id)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
 	}
@@ -32,7 +32,7 @@ func CreateUsersCourses(c echo.Context) error {
 
 //Read All UsersCourses
 func ReadAllUsersCourses(c echo.Context) error {
-	result, err := models.Read_AllUserCourses()
+	result, err := models.FindAllUserCourses()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{"message": err.Error()})
 	}
@@ -61,7 +61,7 @@ func UpdateUsersCourses(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	result, err := models.Put_UserCourses(conv_id, int(conv_users_id), int(conv_course_id))
+	result, err := models.PutUserCourses(conv_id, int(conv_users_id), int(conv_course_id))
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
@@ -83,7 +83,7 @@ func DeleteUsersCourses(c echo.Context) error {
 	}
 
 	// call function Delete_UsersCourses from models
-	result, err := models.Delete_UsersCourses(conv_id)
+	result, err := models.DeleteUsersCourses(conv_id)
 		if err != nil {
 			return c.JSON(http.StatusInternalServerError, err.Error())
 		}

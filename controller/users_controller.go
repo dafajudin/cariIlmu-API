@@ -13,7 +13,7 @@ func CreateUsers(c echo.Context) error {
 	email := c.FormValue("email")
 	password := c.FormValue("password")
 
-	result, err := models.Post_Users(name, email, password)
+	result, err := models.PostUsers(name, email, password)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{
 			"message": err.Error(),
@@ -25,7 +25,7 @@ func CreateUsers(c echo.Context) error {
 
 //Read All Users
 func ReadAllUsers(c echo.Context) error {
-	result, err := models.Read_AllUsers()
+	result, err := models.FindAllUsers()
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, map[string]string{
 			"message": err.Error(),
@@ -48,7 +48,7 @@ func UpdateUsers(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	result, err := models.Put_Users(conv_id, name, email, password)
+	result, err := models.PutUsers(conv_id, name, email, password)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
@@ -65,7 +65,7 @@ func DeleteUsers(c echo.Context) error {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
 
-	result, err := models.Delete_Users(conv_id)
+	result, err := models.DeleteUsers(conv_id)
 	if err != nil {
 		return c.JSON(http.StatusInternalServerError, err.Error())
 	}
