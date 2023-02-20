@@ -30,4 +30,3 @@ func Init(){
 func CreateConnection() *sql.DB {
 	return db
 }
-
