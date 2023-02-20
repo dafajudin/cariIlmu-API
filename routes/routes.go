@@ -33,6 +33,7 @@ func GetApiRoutes() *echo.Echo {
 
 	//routes for users
 	e.GET("/api/users", controller.ReadAllUsers)
+	e.GET("/api/users/:id", controller.ReadUsersById)
 	e.POST("/api/users", controller.CreateUsers)
 	e.PUT("/api/users", controller.UpdateUsers)
 	e.DELETE("/api/users", controller.DeleteUsers)

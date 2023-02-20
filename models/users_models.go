@@ -71,6 +71,24 @@ func FindAllUsers() (Response, error){
 	return res, nil
 }
 
+func FindById(id int) (Response, error){
+	var obj Users
+	var res Response
+
+	con := database.CreateConnection()
+	sqlStatement := "SELECT * FROM users WHERE id = ?"
+	err := con.QueryRow(sqlStatement, id).Scan(&obj.Id, &obj.Name, &obj.Email, &obj.Password)
+	if err != nil {
+		return res, err
+	}
+
+	res.Status = http.StatusOK
+	res.Message = "Success"
+	res.Data = obj
+
+	return res, nil
+}
+
 func PutUsers(id int, name string, email string, password string) (Response, error){
 	var res Response
 
