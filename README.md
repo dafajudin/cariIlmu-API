@@ -10,17 +10,16 @@ Membuat API dengan konsep REST detailnya sebagai berikut:
 * CRUD Akses Kelas Peserta
 
 ## Tech
-API ini dibuat dengan menggunakan :
-Echo Labstack
-MySqlDriver
-dgrijalva/jwt-go
-joho/godotenv
-
-## Requirement
 * Golang 1.20.1
 * MySQL Database
 * Postman API
 * Tools Editor (VsCode) 
+
+## Framework and Library
+Echo Labstack
+MySqlDriver
+dgrijalva/jwt-go
+joho/godotenv
 
 ## Development Server
 ### Start server
