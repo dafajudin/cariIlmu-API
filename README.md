@@ -27,6 +27,7 @@ $ go get github.com/{name of framework or library}
 * MySqlDriver
 * dgrijalva/jwt-go
 * joho/godotenv
+* tkanos/gonfig
 
 ## Development Server
 ### Start server
