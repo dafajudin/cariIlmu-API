@@ -17,17 +17,18 @@ tech yang digunakan dalam development API :
 * Tools Editor (VsCode) 
 
 ## Framework and Library
-Installation :
-```bash
-$ go mod init {your module}
-$ go get github.com/{name of framework or library}
-```
 
 * Echo Labstack
 * MySqlDriver
 * dgrijalva/jwt-go
 * joho/godotenv
 * tkanos/gonfig
+
+Installation :
+```bash
+$ go mod init {your module}
+$ go get github.com/{name of framework or library}
+```
 
 ## Development Server
 ### Start server
