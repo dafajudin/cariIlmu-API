@@ -18,7 +18,7 @@ func GetApiRoutes() *echo.Echo {
 	e.PUT("/api/course_categories", controller.UpdateCourseCategories)
 	e.DELETE("/api/course_categories", controller.DeleteCourseCategories)
 
-	//routes for course
+	//routes for courses
 	e.GET("/api/courses", controller.ReadAllCourses, middleware.IsAuthenticated)
 	e.GET("/api/courses/:id", controller.ReadCoursesById)
 	e.POST("/api/courses", controller.CreateCourses)
